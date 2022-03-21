@@ -3,6 +3,7 @@
 require_relative "../lib/api_constraint"
 
 Rails.application.routes.draw do
+  resources :posts
   passwordless_for :users
 
   concern :api_base do
@@ -15,7 +16,7 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :api do
+  scope :api do
     constraints APIConstraint.new(version: :json_api_v1) do
       concerns :api_base
     end

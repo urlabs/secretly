@@ -18,7 +18,6 @@ gem "jbuilder"
 gem "passwordless", "~> 0.10.0"
 gem "redis", "~> 4.0"
 # gem "kredis"
-# gem "bcrypt", "~> 3.1.7"
 
 gem "bootsnap", require: false
 

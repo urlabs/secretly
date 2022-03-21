@@ -24,6 +24,10 @@ Style/StringLiteralsInInterpolation:
   Enabled: true
   EnforcedStyle: double_quotes
 
+Style/HashSyntax:
+  Enabled: true
+  EnforcedShorthandSyntax: never
+
 Style/ClassAndModuleChildren:
   Exclude:
     - test/**/*.rb
