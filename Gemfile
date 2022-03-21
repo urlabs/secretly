@@ -15,6 +15,7 @@ gem "stimulus-rails"
 gem "turbo-rails"
 
 gem "jbuilder"
+gem "passwordless", "~> 0.10.0"
 gem "redis", "~> 4.0"
 # gem "kredis"
 # gem "bcrypt", "~> 3.1.7"
