@@ -3,7 +3,6 @@
 require_relative "../lib/api_constraint"
 
 Rails.application.routes.draw do
-  resources :posts
   passwordless_for :users
 
   concern :api_base do
