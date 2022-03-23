@@ -17,5 +17,16 @@ module ActiveSupport
       get Passwordless::Engine.routes.url_helpers.token_sign_in_path(session.token)
       follow_redirect!
     end
+
+    def default_user
+      @default_user ||= create(:user)
+    end
+
+    def default_headers
+      @default_headers ||= {
+        "Accept" => "application/vnd.secretly.v1+json",
+        "Content-Type" => "application/json"
+      }
+    end
   end
 end

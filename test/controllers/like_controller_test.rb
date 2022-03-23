@@ -3,17 +3,9 @@
 require "test_helper"
 
 class LikeControllerTest < ActionDispatch::IntegrationTest
-  def user
-    @user ||= create(:user)
-  end
-
-  def default_headers
-    @default_headers ||= { "Accept" => "application/vnd.secretly.v1+json" }
-  end
-
   setup do
-    @post = create(:post, user: user)
-    passwordless_sign_in(user)
+    @post = create(:post, user: default_user)
+    passwordless_sign_in(default_user)
   end
 
   test "should create like" do
@@ -25,7 +17,7 @@ class LikeControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy like" do
-    @post.likes.create(user: user)
+    @post.likes.create(user: default_user)
     assert_difference("Like.count", -1) do
       delete post_like_url(@post), headers: default_headers
     end
