@@ -1,0 +1,76 @@
+name: Ruby
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:13-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: ci_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      RAILS_ENV: test
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+      DATABASE_URL: "postgres://rails:password@localhost:5432/ci_test"
+    steps:
+    - name: Setup Redis
+      uses: zhulik/redis-action@1.1.0
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.1.1
+        bundler-cache: true
+    - uses: actions/cache@v2
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-gems--${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-gems--
+    - name: Install gems
+      run: |
+        gem install bundler
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3
+    - name: Setup Database
+      run: |
+        cp config/database.ci.yml config/database.yml
+        bundle exec rails db:schema:load
+    - name: Tests
+      run: |
+        bundle exec rails test
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.1.1
+        bundler-cache: true
+    - name: Cache gems
+      uses: actions/cache@v2
+      with:
+        path: vendor/bundle
+        key: ${{ runner.os }}-rubocop-${{ hashFiles('**/Gemfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-rubocop-
+    - name: Install gems
+      run: |
+        bundle config path vendor/bundle
+        bundle install --jobs 4 --retry 3
+    - name: Run RuboCop
+      run: bundle exec rubocop --parallel
