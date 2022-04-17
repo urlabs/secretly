@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     end
   end
 
-  scope :api do
+  namespace :api do
     constraints APIConstraint.new(version: :json_api_v1) do
       concerns :api_base
     end

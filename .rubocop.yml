@@ -28,10 +28,6 @@ Style/HashSyntax:
   Enabled: true
   EnforcedShorthandSyntax: never
 
-Style/ClassAndModuleChildren:
-  Exclude:
-    - test/**/*.rb
-
 Metrics/BlockLength:
   Exclude:
     - config/environments/*.rb

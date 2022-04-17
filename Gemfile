@@ -14,15 +14,13 @@ gem "sprockets-rails"
 gem "stimulus-rails"
 gem "turbo-rails"
 
+gem "image_processing", "~> 1.2"
 gem "jbuilder"
 gem "passwordless", "~> 0.10.0"
 gem "redis", "~> 4.0"
 # gem "kredis"
 
 gem "bootsnap", require: false
-
-# gem "sassc-rails"
-# gem "image_processing", "~> 1.2"
 
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw]
