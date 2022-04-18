@@ -3,6 +3,7 @@
 require_relative "../lib/api_constraint"
 
 Rails.application.routes.draw do
+  root "home#index"
   passwordless_for :users
 
   concern :api_base do
@@ -20,6 +21,4 @@ Rails.application.routes.draw do
       concerns :api_base
     end
   end
-
-  root "application#index"
 end
