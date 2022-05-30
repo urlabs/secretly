@@ -7,7 +7,7 @@ module Api
     before_action :set_comment, only: %i[show update destroy]
 
     def index
-      @comment = @comentable.comments
+      @comment = @comentable.comments.page(params[:page])
     end
 
     def show; end

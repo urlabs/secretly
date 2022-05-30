@@ -6,7 +6,7 @@ module Api
     before_action :set_post, only: %i[show update destroy]
 
     def index
-      @posts = Post.all
+      @posts = Post.page(params[:page])
     end
 
     def show; end
