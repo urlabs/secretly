@@ -18,7 +18,7 @@ gem "image_processing", "~> 1.2"
 gem "jbuilder"
 gem "kaminari", "~> 1.2"
 gem "passwordless", "~> 0.10.0"
-gem "redis", "~> 4.0"
+gem "redis", "~> 4.7"
 # gem "kredis"
 
 gem "bootsnap", require: false
